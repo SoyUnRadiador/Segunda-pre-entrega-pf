@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carrito de Compras</title>
+    <style>
+    /* Agrega tus estilos CSS aquí si es necesario */
+    </style>
+</head>
+<body>
+    <h1>Carrito de Compras</h1>
+    <ul>
+        {{#if productosCarrito.length}}
+            {{#each productosCarrito}}
+                <li>
+                    {{this.nombre}} - Cantidad: {{this.cantidadSolicitada}}
+                    <form action="/carrito/{{../cartId}}/delete/{{this._id}}" method="POST">
+                        <button type="submit">Eliminar</button>
+                    </form>
+                </li>
+            {{/each}}
+        {{else}}
+            <p>El carrito está vacío</p>
+        {{/if}}
+    </ul>
+</body>
+</html>
+
+

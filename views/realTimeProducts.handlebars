@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Lista de Productos</title>
+</head>
+<body>
+    <h1>Lista de Productos</h1>
+
+    <ul>
+        {{#each productos}}
+            <li>
+                {{this.Titulo}} - {{this.Descripcion}} - Precio: ${{this.Precio}} - Código: {{this.Codigo}} - Cantidad: {{this.Cantidad}}
+                <button onclick="addToCart('{{this.Codigo}}')">Agregar al Carrito</button>
+            </li>
+        {{/each}}
+    </ul>
+
+    <script>
+        function addToCart(productCode) {
+            fetch(`http://localhost:8080/api/carts/1/product/${productCode}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Fallo al agregar el producto');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Manejar la respuesta si es necesario
+                console.log('Producto agregado al carrito:', data);
+                alert('Producto agregado al carrito!');
+            })
+            .catch(error => {
+                console.error('Error al agregar el producto al carrito:', error);
+                alert('Error al agregar el producto al carrito');
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+<!--{{this.Titulo}} - {{this.Descripcion}} - Precio: ${{this.Precio}} - Código: {{this.Codigo}} - Cantidad: {{this.Cantidad}}
